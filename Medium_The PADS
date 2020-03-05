@@ -1,0 +1,12 @@
+SELECT CONCAT(name,'(',LEFT(occupation,1),')') 
+FROM occupations 
+ORDER BY name;
+SELECT CASE
+WHEN occupation='Doctor' THEN CONCAT('There are a total of ',COUNT(occupation),' doctors.')
+WHEN occupation='Professor' THEN CONCAT('There are a total of ',COUNT(occupation),' professors.')
+WHEN occupation='Singer' THEN CONCAT('There are a total of ',COUNT(occupation),' singers.')
+WHEN occupation='Actor' THEN CONCAT('There are a total of ',COUNT(occupation),' actors.')
+END
+FROM occupations
+GROUP BY occupation
+ORDER BY COUNT(occupation);
