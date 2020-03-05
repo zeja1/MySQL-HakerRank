@@ -1,0 +1,2 @@
+SELECt DISTINCT city FROM station
+WHERE city RLIKE '^[^oaiue]|[^oaiue]$'
