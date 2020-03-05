@@ -1,0 +1,4 @@
+SELECT months*salary AS sal, COUNT(name) FROM employee
+GROUP BY sal
+ORDER BY sal DESC
+LIMIT 1;
