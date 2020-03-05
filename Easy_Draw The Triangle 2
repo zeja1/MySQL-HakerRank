@@ -1,0 +1,3 @@
+SET @ZMIENNA :=0;
+SELECT REPEAT('* ',@ZMIENNA := @ZMIENNA + 1) FROM information_schema.tables
+LIMIT 20;
