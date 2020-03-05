@@ -1,0 +1,2 @@
+SET @ZMIEN=21;
+SELECT REPEAT('* ', @ZMIEN := @ZMIEN-1) FROM information_schema.tables
