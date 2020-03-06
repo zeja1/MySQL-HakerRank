@@ -1,0 +1,27 @@
+/*Pivot the Occupation column in OCCUPATIONS so that each Name is sorted alphabetically and displayed underneath its corresponding Occupation. The output column headers should be Doctor, Professor, Singer, and Actor, respectively.
+
+Note: Print NULL when there are no more names corresponding to an occupation.
+
+Occupation will only contain one of the following values: Doctor, Professor, Singer or Actor.*/
+
+SET @row = 0;
+SET @row1 = 0;
+SET @row2 = 0;
+SET @row3 = 0;
+
+SELECT t1.doctor,t2.professor,t3.singer,t4.actor FROM
+(SELECT @row:=@row+1 AS num, CASE WHEN occupation =  'Doctor' THEN name END AS doctor
+FROM OCCUPATIONS ORDER BY ISNULL(doctor), doctor) AS t1
+INNER JOIN
+(SELECT @row1:=@row1+1 AS num, CASE WHEN occupation =  'Professor' THEN name END AS professor
+FROM OCCUPATIONS ORDER BY ISNULL(professor),professor) AS t2
+ON t1.num=t2.num
+INNER JOIN
+(SELECT @row2:=@row2+1 AS num, CASE WHEN occupation =  'Singer' THEN name END AS singer
+FROM OCCUPATIONS ORDER BY ISNULL(singer),singer) AS t3
+on t2.num=t3.num
+INNER JOIN
+(SELECT @row3:=@row3+1 AS num, CASE WHEN occupation =  'Actor' THEN name END AS actor
+FROM OCCUPATIONS ORDER BY ISNULL(actor),actor) AS t4
+on t3.num=t4.num
+WHERE t1.num <= (SELECT MAX(y.nums) FROM (SELECT count(*) AS nums from occupations group by occupation) AS y);
