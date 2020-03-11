@@ -1,0 +1,3 @@
+SELECT IF(marks<70, NULL, name) as name1, grade, marks FROM students
+INNER JOIN  grades ON marks >= min_mark AND marks <= max_mark
+ORDER BY grade DESC, name1 , marks ASC
