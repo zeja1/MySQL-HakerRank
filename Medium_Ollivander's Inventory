@@ -1,0 +1,9 @@
+SELECT t2.id, t1.age,t1.coins, t1.power  
+FROM (SELECT w.id, wp.age age, w.power power, w.coins_needed coins 
+      FROM wands w
+      INNER JOIN wands_property wp ON w.code=wp.code) t2
+INNER JOIN (SELECT wp.age age, w.power power,  MIN(w.coins_needed) coins FROM wands w
+            INNER JOIN wands_property wp ON w.code=wp.code AND is_evil=0
+            GROUP BY age, power) t1 
+ON t2.coins=t1.coins AND t2.power=t1.power AND t2.age=t1.age
+ORDER BY t1.power DESC, t1.age DESC;
