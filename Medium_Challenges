@@ -1,0 +1,9 @@
+SELECT h.hacker_id h_id, h.name, count_chall 
+FROM hackers h
+INNER JOIN (SELECT hacker_id, COUNT(*) count_chall 
+            FROM challenges GROUP BY hacker_id)  AS t1 
+ON t1.hacker_id=h.hacker_id
+WHERE count_chall NOT IN (SELECT t1.count_chall FROM (SELECT hacker_id, COUNT(challenge_id) count_chall FROM challenges GROUP BY hacker_id)t1
+        GROUP BY t1.count_chall 
+        HAVING t1.count_chall<(SELECT COUNT(*) count_chall FROM challenges GROUP BY hacker_id ORDER BY count_chall DESC LIMIT 1) AND COUNT(*)>1)
+ORDER BY count_chall DESC, h_id
